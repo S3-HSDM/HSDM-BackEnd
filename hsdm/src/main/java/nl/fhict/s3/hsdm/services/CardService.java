@@ -1,7 +1,6 @@
 package nl.fhict.s3.hsdm.services;
 
 import nl.fhict.s3.hsdm.models.Card;
-import nl.fhict.s3.hsdm.models.SpellCard;
 import nl.fhict.s3.hsdm.repositories.IHeroCardRepository;
 import nl.fhict.s3.hsdm.repositories.IMinionCardRepository;
 import nl.fhict.s3.hsdm.repositories.ISpellCardRepository;
@@ -28,28 +27,78 @@ public class CardService {
         this.spellCardRepository = spellCardRepository;
     }
 
-    public List<Card> getCards() {
+    public List<Card> getCards(String cardClass, String cardType) {
+        List<Card> cardsFiltered = new ArrayList<>();
         List<Card> cards = new ArrayList<>();
-        cards.addAll(heroCardRepository.findAllHeroCards());
-        cards.addAll(minionCardRepository.findAllMinionCards());
-        cards.addAll(spellCardRepository.findAllSpellCards());
-        cards.addAll(weaponCardRepository.findAllWeaponCards());
-        if(cards.isEmpty()){
-            throw new IllegalStateException("There are no cards to display yet!");
+        if (cardType.equals("")) {
+            cards.addAll(heroCardRepository.findAllHeroCards());
+            cards.addAll(minionCardRepository.findAllMinionCards());
+            cards.addAll(spellCardRepository.findAllSpellCards());
+            cards.addAll(weaponCardRepository.findAllWeaponCards());
+            if (cards.isEmpty()) {
+                throw new IllegalStateException("There are no cards to display yet!");
+            }
+            for (Card card : cards) {
+                if (card.getCardClass().equals(cardClass) || cardClass.equals("")) {
+                    cardsFiltered.add(card);
+                }
+            }
+            return cardsFiltered;
+        } else if (cardType.equals("herocard")) {
+            cards = heroCardRepository.findAllHeroCards();
+            for (Card card : cards) {
+                if (card.getCardClass().equals(cardClass) || cardClass.equals("")) {
+                    cardsFiltered.add(card);
+                }
+                return cardsFiltered;
+            }
+        } else if (cardType.equals("minioncard")) {
+            cards = minionCardRepository.findAllMinionCards();
+            for (Card card : cards) {
+                if (card.getCardClass().equals(cardClass) || cardClass.equals("")) {
+                    cardsFiltered.add(card);
+                }
+                return cardsFiltered;
+            }
+        } else if (cardType.equals("spellcard")) {
+            cards = spellCardRepository.findAllSpellCards();
+            for (Card card : cards) {
+                if (card.getCardClass().equals(cardClass) || cardClass.equals("")) {
+                    cardsFiltered.add(card);
+                }
+                return cardsFiltered;
+            }
+        } else if (cardType.equals("weaponcard")) {
+            cards = weaponCardRepository.findAllWeaponCards();
+            for (Card card : cards) {
+                if (card.getCardClass().equals(cardClass) || cardClass.equals("")) {
+                    cardsFiltered.add(card);
+                }
+                return cardsFiltered;
+            }
         }
-        return cards;
+        throw new IllegalStateException("Cards couldn't be found!");
     }
 
-    public List<Card> getCardsByType(String cardType) {
-        if(cardType.equals("herocard")){
-            return heroCardRepository.findAllHeroCards();
-        }else if(cardType.equals("minioncard")){
-            return minionCardRepository.findAllMinionCards();
-        }else if(cardType.equals("spellcard")){
-            return spellCardRepository.findAllSpellCards();
-        }else if (cardType.equals("weaponcard")){
-            return weaponCardRepository.findAllWeaponCards();
-        }
-        throw new IllegalStateException("The Cardtype " + cardType + " doesn't exist!");
-    }
+//    cards.addAll(heroCardRepository.findAllHeroCards());
+//        cards.addAll(minionCardRepository.findAllMinionCards());
+//        cards.addAll(spellCardRepository.findAllSpellCards());
+//        cards.addAll(weaponCardRepository.findAllWeaponCards());
+//        if(cards.isEmpty()){
+//        throw new IllegalStateException("There are no cards to display yet!");
+//    }
+//        return cards;
+
+//    public List<Card> getCardsByType(String cardType) {
+//        if(cardType.equals("herocard")){
+//            return heroCardRepository.findAllHeroCards(cardClass);
+//        }else if(cardType.equals("minioncard")){
+//            return minionCardRepository.findAllMinionCards(cardClass);
+//        }else if(cardType.equals("spellcard")){
+//            return spellCardRepository.findAllSpellCards(cardClass);
+//        }else if (cardType.equals("weaponcard")){
+//            return weaponCardRepository.findAllWeaponCards(cardClass);
+//        }
+//        throw new IllegalStateException("The Cardtype " + cardType + " doesn't exist!");
+//    }
 }

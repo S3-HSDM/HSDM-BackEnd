@@ -21,14 +21,9 @@ public class CardController {
     }
 
     @GetMapping
-    public List<Card> getCards() {
-        return cardService.getCards();
+    public List<Card> getCards(@RequestParam(name="class", defaultValue = "") String cardClass,
+                               @RequestParam(name="type", defaultValue = "") String cardType) {
+        return cardService.getCards(cardClass, cardType);
     }
-
-    @GetMapping(path = "{cardType}")
-    public List<Card> getCardsByType(@PathVariable("cardType") String cardType){
-        return cardService.getCardsByType(cardType);
-    }
-
 
 }
