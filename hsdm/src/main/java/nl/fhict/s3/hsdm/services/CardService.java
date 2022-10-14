@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class CardService {
 
     public List<Card> getCards() {
         List<Card> cards = new ArrayList<>();
+        List<Card> cardsSorted = new ArrayList<>();
         cards.addAll(heroCardRepository.findAllHeroCards());
         cards.addAll(minionCardRepository.findAllMinionCards());
         cards.addAll(spellCardRepository.findAllSpellCards());
@@ -37,7 +40,14 @@ public class CardService {
         if(cards.isEmpty()){
             throw new IllegalStateException("There are no cards to display yet!");
         }
-        return cards;
+        for (int cost = 0; cost < 100; cost++) {
+            for (Card card : cards) {
+                if(card.getCost() == cost){
+                    cardsSorted.add(card);
+                }
+            }
+        }
+        return cardsSorted;
     }
 
     public List<Card> getCardsByType(String cardType) {
