@@ -1,18 +1,12 @@
 package nl.fhict.s3.hsdm.services;
 
-import nl.fhict.s3.hsdm.models.Card;
-import nl.fhict.s3.hsdm.models.SpellCard;
-import nl.fhict.s3.hsdm.repositories.IHeroCardRepository;
-import nl.fhict.s3.hsdm.repositories.IMinionCardRepository;
-import nl.fhict.s3.hsdm.repositories.ISpellCardRepository;
-import nl.fhict.s3.hsdm.repositories.IWeaponCardRepository;
+import nl.fhict.s3.hsdm.models.*;
+import nl.fhict.s3.hsdm.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Service
 public class CardService {
@@ -61,5 +55,170 @@ public class CardService {
             return weaponCardRepository.findAllWeaponCards();
         }
         throw new IllegalStateException("The Cardtype " + cardType + " doesn't exist!");
+    }
+
+    public Optional<Card> findCardById(Integer cardId) {
+        Optional<Card> cardById = heroCardRepository.findById(cardId);
+        if(cardById == null){
+            cardById = minionCardRepository.findById(cardId);
+            if(cardById == null){
+                cardById = spellCardRepository.findById(cardId);
+                if(cardById == null){
+                    cardById = weaponCardRepository.findById(cardId);
+                }
+            }
+        }
+        return cardById;
+    }
+
+    public void deleteCard(Integer cardId) {
+        heroCardRepository.deleteById(cardId);
+    }
+
+    public void addNewHeroCard(HeroCard newCard) {
+        heroCardRepository.save(newCard);
+    }
+
+    public void addNewMinionCard(MinionCard newCard) {
+        minionCardRepository.save(newCard);
+    }
+
+    public void addNewSpellCard(SpellCard newCard) {
+        spellCardRepository.save(newCard);
+    }
+
+    public void addNewWeaponCard(WeaponCard newCard) {
+        weaponCardRepository.save(newCard);
+    }
+
+    @Transactional
+    public void updateHeroCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, String heroPower, String heroPowerEffect, Integer heroPowerCost) {
+        HeroCard card = (HeroCard) heroCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        if(cardClass != null){
+            card.setCardClass(cardClass);
+        }
+        if(name != null){
+            card.setName(name);
+        }
+        if(image != null){
+            card.setImage(image);
+        }
+        if(cost != null){
+            card.setCost(cost);
+        }
+        if(rarity != null){
+            card.setRarity(rarity);
+        }
+        if(set != null){
+            card.setSet(set);
+        }
+        if(effect != null){
+            card.setEffect(effect);
+        }
+        if(heroPower != null){
+            card.setHeroPower(heroPower);
+        }
+        if(heroPowerEffect != null){
+            card.setHeroPowerEffect(heroPowerEffect);
+        }
+        if(heroPowerCost != null){
+            card.setHeroPowerCost(heroPowerCost);
+        }
+    }
+
+    @Transactional
+    public void updateMinionCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, Integer attack, Integer health, String tribe) {
+        MinionCard card = (MinionCard) minionCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        if(cardClass != null){
+            card.setCardClass(cardClass);
+        }
+        if(name != null){
+            card.setName(name);
+        }
+        if(image != null){
+            card.setImage(image);
+        }
+        if(cost != null){
+            card.setCost(cost);
+        }
+        if(rarity != null){
+            card.setRarity(rarity);
+        }
+        if(set != null){
+            card.setSet(set);
+        }
+        if(effect != null){
+            card.setEffect(effect);
+        }
+        if(attack != null){
+            card.setAttack(attack);
+        }
+        if(health != null){
+            card.setHealth(health);
+        }
+        if(tribe != null){
+            card.setTribe(tribe);
+        }
+    }
+
+    @Transactional
+    public void updateSpellCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, String spellType) {
+        SpellCard card = (SpellCard) spellCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        if(cardClass != null){
+            card.setCardClass(cardClass);
+        }
+        if(name != null){
+            card.setName(name);
+        }
+        if(image != null){
+            card.setImage(image);
+        }
+        if(cost != null){
+            card.setCost(cost);
+        }
+        if(rarity != null){
+            card.setRarity(rarity);
+        }
+        if(set != null){
+            card.setSet(set);
+        }
+        if(effect != null){
+            card.setEffect(effect);
+        }
+        if(spellType != null){
+            card.setSpellType(spellType);
+        }
+    }
+
+    @Transactional
+    public void updateWeaponCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, Integer attack, Integer durability) {
+        WeaponCard card = (WeaponCard) weaponCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        if(cardClass != null){
+            card.setCardClass(cardClass);
+        }
+        if(name != null){
+            card.setName(name);
+        }
+        if(image != null){
+            card.setImage(image);
+        }
+        if(cost != null){
+            card.setCost(cost);
+        }
+        if(rarity != null){
+            card.setRarity(rarity);
+        }
+        if(set != null){
+            card.setSet(set);
+        }
+        if(effect != null){
+            card.setEffect(effect);
+        }
+        if(attack != null){
+            card.setAttack(attack);
+        }
+        if(durability != null){
+            card.setDurability(durability);
+        }
     }
 }
