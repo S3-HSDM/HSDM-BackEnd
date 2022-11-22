@@ -30,9 +30,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file ./hsdm/pom.xml
     - name: Run controller tests
-      run: mvn -B test --file ./hsdm/src/test/java/nl/fhict/s3/hsdm/controllers/CardControllerTest.java
-    - name: Run service tests
-      run: mvn -B test --file ./hsdm/src/test/java/nl/fhict/s3/hsdm/services/CardServiceTest.java
+      run: mvn -B test --file ./hsdm/pom.xml
       
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
