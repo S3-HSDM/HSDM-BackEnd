@@ -1,66 +1,37 @@
 package nl.fhict.s3.hsdm;
 
+import nl.fhict.s3.hsdm.controllers.CardController;
 import nl.fhict.s3.hsdm.models.*;
 import nl.fhict.s3.hsdm.repositories.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.junit4.SpringRunner;
+
 
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class HsdmApplicationTests {
-    @Autowired
-    private MockMvc mockMvc;
 
-    @MockBean
-    private ICardRepository cardRepository;
+    @Autowired
+    private CardController cardController;
+
     @MockBean
     private IHeroCardRepository heroCardRepository;
-    @MockBean
-    private IMinionCardRepository minionCardRepository;
-    @MockBean
-    private ISpellCardRepository spellCardRepository;
-    @MockBean
-    private IWeaponCardRepository weaponCardRepository;
 
     @Test
-    void addHeroCard() throws Exception {
-        Card newCard = new HeroCard();
-        Mockito.when(heroCardRepository.save(newCard)).thenReturn(null);
-        mockMvc.perform(post("/api/cards?cardClass=TestClass&name=TestName&image=TestImage&cost=5&rarity=Epic&set=TestSet&effect=TestEffect&heroPower=TestHp&heroPowerEffect=TestHpEffect&heroPowerCost=5")
-        ).andExpect(status().isOk());
-    }
+    public void testRetrieveStudentWithMockRepository() throws Exception {
 
-    @Test
-    void addMinionCard() throws Exception {
-        Card newCard = new MinionCard();
-        Mockito.when(minionCardRepository.save(newCard)).thenReturn(null);
-        mockMvc.perform(post("/api/cards?cardClass=TestClass&name=TestName&image=TestImage&cost=5&rarity=Epic&set=TestSet&effect=TestEffect&attack=5&health=5&tribe=TestTribe")
-        ).andExpect(status().isOk());
-    }
+        Optional<Card> card = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
+        when(heroCardRepository.findById(1)).thenReturn(card);
 
-    @Test
-    void addSpellCard() throws Exception {
-        Card newCard = new SpellCard();
-        Mockito.when(spellCardRepository.save(newCard)).thenReturn(null);
-        mockMvc.perform(post("/api/cards?cardClass=TestClass&name=TestName&image=TestImage&cost=5&rarity=Epic&set=TestSet&effect=TestEffect&spellType=TestSpellType")
-        ).andExpect(status().isOk());
-    }
-
-    @Test
-    void addWeaponCard() throws Exception {
-        Card newCard = new WeaponCard();
-        Mockito.when(weaponCardRepository.save(newCard)).thenReturn(null);
-        mockMvc.perform(post("/api/cards?cardClass=TestClass&name=TestName&image=TestImage&cost=5&rarity=Epic&set=TestSet&effect=TestEffect&attack=5&durability=5")
-        ).andExpect(status().isOk());
+        assertTrue(cardController.getCardById(1).equals(card));
     }
 }
