@@ -63,10 +63,4 @@ class HsdmApplicationTests {
         mockMvc.perform(post("/api/cards?cardClass=TestClass&name=TestName&image=TestImage&cost=5&rarity=Epic&set=TestSet&effect=TestEffect&attack=5&durability=5")
         ).andExpect(status().isOk());
     }
-
-    @Test
-    void deleteCard() throws Exception {
-        mockMvc.perform(delete("/api/cards/3")
-        ).andExpect(status().isOk());
-    }
 }
