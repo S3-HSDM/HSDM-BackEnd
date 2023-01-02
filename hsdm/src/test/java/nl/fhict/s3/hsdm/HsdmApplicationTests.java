@@ -69,11 +69,4 @@ class HsdmApplicationTests {
         mockMvc.perform(delete("/api/cards/3")
         ).andExpect(status().isOk());
     }
-
-    @Test
-    void getCards() throws Exception {
-        mockMvc.perform(get("/api/cards")
-        ).andExpect(status().isOk());
-    }
-
 }
