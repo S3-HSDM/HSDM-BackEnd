@@ -45,6 +45,10 @@ class HsdmApplicationTests {
      */
     @Test
     void testAddNewCard() throws Exception {
+        Optional<Card> card = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
+        when(heroCardRepository.findById(1)).thenReturn(card);
+
+        assertTrue(cardController.getCardById(1).equals(card));
 
     }
 }
