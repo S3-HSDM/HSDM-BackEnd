@@ -4,7 +4,6 @@ import nl.fhict.s3.hsdm.controllers.CardController;
 import nl.fhict.s3.hsdm.models.*;
 import nl.fhict.s3.hsdm.repositories.*;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,7 +15,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class HsdmApplicationTests {
 
@@ -27,11 +25,9 @@ class HsdmApplicationTests {
     private IHeroCardRepository heroCardRepository;
 
     @Test
-    public void testRetrieveStudentWithMockRepository() throws Exception {
-
+    public void testFindCardById() throws Exception {
         Optional<Card> card = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
         when(heroCardRepository.findById(1)).thenReturn(card);
-
         assertTrue(cardController.getCardById(1).equals(card));
     }
 }
