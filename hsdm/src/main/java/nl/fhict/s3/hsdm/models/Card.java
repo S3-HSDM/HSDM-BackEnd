@@ -23,10 +23,10 @@ public abstract class Card {
     private String set;
     private String effect;
 
-    public Card() {
+    protected Card() {
     }
 
-    public Card(String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect) {
+    protected Card(String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect) {
         this.cardClass = cardClass;
         this.name = name;
         this.image = image;
@@ -36,7 +36,7 @@ public abstract class Card {
         this.effect = effect;
     }
 
-    public Card(Integer id, String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect) {
+    protected Card(Integer id, String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect) {
         this.id = id;
         this.cardClass = cardClass;
         this.name = name;

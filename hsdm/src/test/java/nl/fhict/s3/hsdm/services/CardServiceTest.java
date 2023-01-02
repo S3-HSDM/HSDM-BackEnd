@@ -82,7 +82,7 @@ class CardServiceTest {
         heroCard.setId(1);
         heroCard.setImage("Image");
         heroCard.setName("Name");
-        heroCard.setRarity(Rarity.Free);
+        heroCard.setRarity(Rarity.FREE);
         heroCard.setSet("Set");
         when(iHeroCardRepository.save((HeroCard) any())).thenReturn(heroCard);
 
@@ -96,13 +96,13 @@ class CardServiceTest {
         heroCard1.setId(1);
         heroCard1.setImage("Image");
         heroCard1.setName("Name");
-        heroCard1.setRarity(Rarity.Free);
+        heroCard1.setRarity(Rarity.FREE);
         heroCard1.setSet("Set");
         cardService.addNewHeroCard(heroCard1);
         verify(iHeroCardRepository).save((HeroCard) any());
         assertEquals("Card Class", heroCard1.getCardClass());
         assertEquals("Set", heroCard1.getSet());
-        assertEquals(Rarity.Free, heroCard1.getRarity());
+        assertEquals(Rarity.FREE, heroCard1.getRarity());
         assertEquals("Name", heroCard1.getName());
         assertEquals("Image", heroCard1.getImage());
         assertEquals(1, heroCard1.getId().intValue());
@@ -130,7 +130,7 @@ class CardServiceTest {
         heroCard.setId(1);
         heroCard.setImage("Image");
         heroCard.setName("Name");
-        heroCard.setRarity(Rarity.Free);
+        heroCard.setRarity(Rarity.FREE);
         heroCard.setSet("Set");
         assertThrows(IllegalStateException.class, () -> cardService.addNewHeroCard(heroCard));
         verify(iHeroCardRepository).save((HeroCard) any());
@@ -150,7 +150,7 @@ class CardServiceTest {
         minionCard.setId(1);
         minionCard.setImage("Image");
         minionCard.setName("Name");
-        minionCard.setRarity(Rarity.Free);
+        minionCard.setRarity(Rarity.FREE);
         minionCard.setSet("Set");
         minionCard.setTribe("Tribe");
         when(iMinionCardRepository.save((MinionCard) any())).thenReturn(minionCard);
@@ -164,7 +164,7 @@ class CardServiceTest {
         minionCard1.setId(1);
         minionCard1.setImage("Image");
         minionCard1.setName("Name");
-        minionCard1.setRarity(Rarity.Free);
+        minionCard1.setRarity(Rarity.FREE);
         minionCard1.setSet("Set");
         minionCard1.setTribe("Tribe");
         cardService.addNewMinionCard(minionCard1);
@@ -172,7 +172,7 @@ class CardServiceTest {
         assertEquals(1, minionCard1.getAttack().intValue());
         assertEquals("Tribe", minionCard1.getTribe());
         assertEquals("Set", minionCard1.getSet());
-        assertEquals(Rarity.Free, minionCard1.getRarity());
+        assertEquals(Rarity.FREE, minionCard1.getRarity());
         assertEquals("Name", minionCard1.getName());
         assertEquals("Image", minionCard1.getImage());
         assertEquals(1, minionCard1.getId().intValue());
@@ -198,7 +198,7 @@ class CardServiceTest {
         minionCard.setId(1);
         minionCard.setImage("Image");
         minionCard.setName("Name");
-        minionCard.setRarity(Rarity.Free);
+        minionCard.setRarity(Rarity.FREE);
         minionCard.setSet("Set");
         minionCard.setTribe("Tribe");
         assertThrows(IllegalStateException.class, () -> cardService.addNewMinionCard(minionCard));
@@ -217,7 +217,7 @@ class CardServiceTest {
         spellCard.setId(1);
         spellCard.setImage("Image");
         spellCard.setName("Name");
-        spellCard.setRarity(Rarity.Free);
+        spellCard.setRarity(Rarity.FREE);
         spellCard.setSet("Set");
         spellCard.setSpellType("Spell Type");
         when(iSpellCardRepository.save((SpellCard) any())).thenReturn(spellCard);
@@ -229,7 +229,7 @@ class CardServiceTest {
         spellCard1.setId(1);
         spellCard1.setImage("Image");
         spellCard1.setName("Name");
-        spellCard1.setRarity(Rarity.Free);
+        spellCard1.setRarity(Rarity.FREE);
         spellCard1.setSet("Set");
         spellCard1.setSpellType("Spell Type");
         cardService.addNewSpellCard(spellCard1);
@@ -237,7 +237,7 @@ class CardServiceTest {
         assertEquals("Card Class", spellCard1.getCardClass());
         assertEquals("Spell Type", spellCard1.getSpellType());
         assertEquals("Set", spellCard1.getSet());
-        assertEquals(Rarity.Free, spellCard1.getRarity());
+        assertEquals(Rarity.FREE, spellCard1.getRarity());
         assertEquals("Name", spellCard1.getName());
         assertEquals("Image", spellCard1.getImage());
         assertEquals(1, spellCard1.getId().intValue());
@@ -259,7 +259,7 @@ class CardServiceTest {
         spellCard.setId(1);
         spellCard.setImage("Image");
         spellCard.setName("Name");
-        spellCard.setRarity(Rarity.Free);
+        spellCard.setRarity(Rarity.FREE);
         spellCard.setSet("Set");
         spellCard.setSpellType("Spell Type");
         assertThrows(IllegalStateException.class, () -> cardService.addNewSpellCard(spellCard));
@@ -280,7 +280,7 @@ class CardServiceTest {
         weaponCard.setId(1);
         weaponCard.setImage("Image");
         weaponCard.setName("Name");
-        weaponCard.setRarity(Rarity.Free);
+        weaponCard.setRarity(Rarity.FREE);
         weaponCard.setSet("Set");
         when(iWeaponCardRepository.save((WeaponCard) any())).thenReturn(weaponCard);
 
@@ -293,13 +293,13 @@ class CardServiceTest {
         weaponCard1.setId(1);
         weaponCard1.setImage("Image");
         weaponCard1.setName("Name");
-        weaponCard1.setRarity(Rarity.Free);
+        weaponCard1.setRarity(Rarity.FREE);
         weaponCard1.setSet("Set");
         cardService.addNewWeaponCard(weaponCard1);
         verify(iWeaponCardRepository).save((WeaponCard) any());
         assertEquals(1, weaponCard1.getAttack().intValue());
         assertEquals("Set", weaponCard1.getSet());
-        assertEquals(Rarity.Free, weaponCard1.getRarity());
+        assertEquals(Rarity.FREE, weaponCard1.getRarity());
         assertEquals("Name", weaponCard1.getName());
         assertEquals("Image", weaponCard1.getImage());
         assertEquals(1, weaponCard1.getId().intValue());
@@ -325,7 +325,7 @@ class CardServiceTest {
         weaponCard.setId(1);
         weaponCard.setImage("Image");
         weaponCard.setName("Name");
-        weaponCard.setRarity(Rarity.Free);
+        weaponCard.setRarity(Rarity.FREE);
         weaponCard.setSet("Set");
         assertThrows(IllegalStateException.class, () -> cardService.addNewWeaponCard(weaponCard));
         verify(iWeaponCardRepository).save((WeaponCard) any());

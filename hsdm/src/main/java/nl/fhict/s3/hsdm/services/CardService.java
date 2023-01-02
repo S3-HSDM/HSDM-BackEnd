@@ -93,7 +93,7 @@ public class CardService {
 
     @Transactional
     public void updateHeroCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, String heroPower, String heroPowerEffect, Integer heroPowerCost) {
-        HeroCard card = (HeroCard) heroCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        HeroCard card = (HeroCard) heroCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Hero card with id " + cardId + " does not exist!"));
         if(cardClass != null){
             card.setCardClass(cardClass);
         }
@@ -128,7 +128,7 @@ public class CardService {
 
     @Transactional
     public void updateMinionCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, Integer attack, Integer health, String tribe) {
-        MinionCard card = (MinionCard) minionCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        MinionCard card = (MinionCard) minionCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Minion card with id " + cardId + " does not exist!"));
         if(cardClass != null){
             card.setCardClass(cardClass);
         }
@@ -163,7 +163,7 @@ public class CardService {
 
     @Transactional
     public void updateSpellCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, String spellType) {
-        SpellCard card = (SpellCard) spellCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        SpellCard card = (SpellCard) spellCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Spell card with id " + cardId + " does not exist!"));
         if(cardClass != null){
             card.setCardClass(cardClass);
         }
@@ -192,7 +192,7 @@ public class CardService {
 
     @Transactional
     public void updateWeaponCard(Integer cardId,String cardClass, String name, String image, Integer cost, Rarity rarity, String set, String effect, Integer attack, Integer durability) {
-        WeaponCard card = (WeaponCard) weaponCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Card with id " + cardId + " does not exist!"));
+        WeaponCard card = (WeaponCard) weaponCardRepository.findById(cardId).orElseThrow(()-> new IllegalStateException("Weapon card with id " + cardId + " does not exist!"));
         if(cardClass != null){
             card.setCardClass(cardClass);
         }

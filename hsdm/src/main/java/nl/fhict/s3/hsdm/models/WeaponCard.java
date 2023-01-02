@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "weaponCard")
 public class WeaponCard extends Card {
-    public Integer attack;
-    public Integer durability;
+    private Integer attack;
+    private Integer durability;
 
     public WeaponCard() {
     }

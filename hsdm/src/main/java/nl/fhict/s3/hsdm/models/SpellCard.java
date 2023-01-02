@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "spellCard")
 public class SpellCard extends Card {
-    public String spellType;
+    private String spellType;
 
     public SpellCard() {
     }

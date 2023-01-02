@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "heroCard")
 public class HeroCard extends Card {
-    public String heroPower;
-    public String heroPowerEffect;
-    public Integer heroPowerCost;
+    private String heroPower;
+    private String heroPowerEffect;
+    private Integer heroPowerCost;
 
     public HeroCard() {
     }

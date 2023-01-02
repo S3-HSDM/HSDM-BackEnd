@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,16 +50,16 @@ public class CardController {
                            @RequestParam(required = false) Integer durability
                            ){
         if(heroPower != null){
-            HeroCard newCard = new HeroCard(cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,heroPower,heroPowerEffect,heroPowerCost);
+            HeroCard newCard = new HeroCard(cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,heroPower,heroPowerEffect,heroPowerCost);
             cardService.addNewHeroCard(newCard);
         } else if(health != null){
-            MinionCard newCard = new MinionCard(cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,attack,health,tribe);
+            MinionCard newCard = new MinionCard(cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,attack,health,tribe);
             cardService.addNewMinionCard(newCard);
         } else if(spellType != null){
-            SpellCard newCard = new SpellCard(cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,spellType);
+            SpellCard newCard = new SpellCard(cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,spellType);
             cardService.addNewSpellCard(newCard);
         } else if(durability != null){
-            WeaponCard newCard = new WeaponCard(cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,attack,durability);
+            WeaponCard newCard = new WeaponCard(cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,attack,durability);
             cardService.addNewWeaponCard(newCard);
         }
     }
@@ -87,13 +88,13 @@ public class CardController {
                            @RequestParam(required = false) Integer durability
     ){
         if(heroPower != null){
-            cardService.updateHeroCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,heroPower,heroPowerEffect,heroPowerCost);
+            cardService.updateHeroCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,heroPower,heroPowerEffect,heroPowerCost);
         } else if(health != null){
-            cardService.updateMinionCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,attack,health,tribe);
+            cardService.updateMinionCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,attack,health,tribe);
         } else if(spellType != null){
-            cardService.updateSpellCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,spellType);
+            cardService.updateSpellCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,spellType);
         } else if(durability != null){
-            cardService.updateWeaponCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity),set,effect,attack,durability);
+            cardService.updateWeaponCard(cardId,cardClass,name,image,cost,Rarity.valueOf(rarity.toUpperCase(Locale.ROOT)),set,effect,attack,durability);
         }
     }
 }
