@@ -8,19 +8,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 @ContextConfiguration(classes = {CardController.class, CardService.class})
 @ExtendWith(SpringExtension.class)
@@ -44,11 +43,62 @@ class HsdmApplicationTests {
      * Method under test: {@link CardController#addNewCard(String, String, String, Integer, String, String, String, String, String, Integer, Integer, Integer, String, String, Integer)}
      */
     @Test
-    void testAddNewCard() throws Exception {
-        Optional<Card> card = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
-        when(heroCardRepository.findById(1)).thenReturn(card);
+    void testGetHeroCardById() throws Exception {
+        Optional<Card> heroCard = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
+        when(heroCardRepository.findById(1)).thenReturn(heroCard);
+        assertTrue(cardController.getCardById(1).equals(heroCard));
+    }
 
-        assertTrue(cardController.getCardById(1).equals(card));
+    @Test
+    void testGetMinionCardById() throws Exception {
+        Optional<Card> minionCard = Optional.of( new MinionCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0,"TestTribe"));
+        when(heroCardRepository.findById(2)).thenReturn(minionCard);
+        assertTrue(cardController.getCardById(2).equals(minionCard));
+    }
 
+    @Test
+    void testGetSpellCardById() throws Exception {
+        Optional<Card> spellCard = Optional.of( new SpellCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestSpellType"));
+        when(heroCardRepository.findById(3)).thenReturn(spellCard);
+        assertTrue(cardController.getCardById(3).equals(spellCard));
+    }
+
+    @Test
+    void testGetWeaponCardById() throws Exception {
+        Optional<Card> weaponCard = Optional.of( new WeaponCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0));
+        when(heroCardRepository.findById(4)).thenReturn(weaponCard);
+        assertTrue(cardController.getCardById(4).equals(weaponCard));
+    }
+
+    @Test
+    void testGetAllCards() throws Exception {
+        Card heroCard = new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0);
+        Card minionCard = new MinionCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0,"TestTribe");
+        Card spellCard = new SpellCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestSpellType");
+        Card weaponCard = new WeaponCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0);
+        List<Card> allCards = new ArrayList<Card>();
+        allCards.add(heroCard);
+        allCards.add(minionCard);
+        allCards.add(spellCard);
+        allCards.add(weaponCard);
+        List<Card> heroCards = new ArrayList<>();
+        heroCards.add(heroCard);
+        List<Card> minionCards = new ArrayList<>();
+        heroCards.add(minionCard);
+        List<Card> spellCards = new ArrayList<>();
+        heroCards.add(spellCard);
+        List<Card> weaponCards = new ArrayList<>();
+        heroCards.add(weaponCard);
+        when(heroCardRepository.findAllHeroCards()).thenReturn(heroCards);
+        when(minionCardRepository.findAllMinionCards()).thenReturn(minionCards);
+        when(spellCardRepository.findAllSpellCards()).thenReturn(spellCards);
+        when(weaponCardRepository.findAllWeaponCards()).thenReturn(weaponCards);
+        assertTrue(cardController.getCards().equals(allCards));
+    }
+
+    @Test
+    void testDeleteCard() throws Exception {
+        doNothing().when(heroCardRepository).deleteById(1);
+        assertTrue(cardController.deleteCard(1).equals(ResponseEntity.status(HttpStatus.OK).body("Card " + 1 + " is deleted!")));
     }
 }

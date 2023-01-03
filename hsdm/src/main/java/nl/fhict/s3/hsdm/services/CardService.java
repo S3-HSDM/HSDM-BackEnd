@@ -59,15 +59,6 @@ public class CardService {
 
     public Optional<Card> findCardById(Integer cardId) {
         Optional<Card> cardById = heroCardRepository.findById(cardId);
-        if(cardById == null){
-            cardById = minionCardRepository.findById(cardId);
-            if(cardById == null){
-                cardById = spellCardRepository.findById(cardId);
-                if(cardById == null){
-                    cardById = weaponCardRepository.findById(cardId);
-                }
-            }
-        }
         return cardById;
     }
 

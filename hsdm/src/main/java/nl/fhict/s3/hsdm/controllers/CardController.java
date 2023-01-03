@@ -4,6 +4,8 @@ package nl.fhict.s3.hsdm.controllers;
 import nl.fhict.s3.hsdm.models.*;
 import nl.fhict.s3.hsdm.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,8 +67,9 @@ public class CardController {
     }
 
     @DeleteMapping(path = "{cardId}")
-    public void deleteCard(@PathVariable("cardId") Integer cardId){
+    public ResponseEntity<String> deleteCard(@PathVariable("cardId") Integer cardId){
         cardService.deleteCard(cardId);
+        return ResponseEntity.status(HttpStatus.OK).body("Card " + cardId + " is deleted!");
     }
 
     @PutMapping(path = "{cardId}")
