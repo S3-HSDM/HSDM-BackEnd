@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
@@ -46,28 +47,28 @@ class HsdmApplicationTests {
     void testGetHeroCardById() throws Exception {
         Optional<Card> heroCard = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
         when(heroCardRepository.findById(1)).thenReturn(heroCard);
-        assertTrue(cardController.getCardById(1).equals(heroCard));
+        assertEquals(cardController.getCardById(1), heroCard);
     }
 
     @Test
     void testGetMinionCardById() throws Exception {
         Optional<Card> minionCard = Optional.of( new MinionCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0,"TestTribe"));
         when(heroCardRepository.findById(2)).thenReturn(minionCard);
-        assertTrue(cardController.getCardById(2).equals(minionCard));
+        assertEquals(cardController.getCardById(2), minionCard);
     }
 
     @Test
     void testGetSpellCardById() throws Exception {
         Optional<Card> spellCard = Optional.of( new SpellCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestSpellType"));
         when(heroCardRepository.findById(3)).thenReturn(spellCard);
-        assertTrue(cardController.getCardById(3).equals(spellCard));
+        assertEquals(cardController.getCardById(3), spellCard);
     }
 
     @Test
     void testGetWeaponCardById() throws Exception {
         Optional<Card> weaponCard = Optional.of( new WeaponCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0));
         when(heroCardRepository.findById(4)).thenReturn(weaponCard);
-        assertTrue(cardController.getCardById(4).equals(weaponCard));
+        assertEquals(cardController.getCardById(4), weaponCard);
     }
 
     @Test
@@ -93,12 +94,12 @@ class HsdmApplicationTests {
         when(minionCardRepository.findAllMinionCards()).thenReturn(minionCards);
         when(spellCardRepository.findAllSpellCards()).thenReturn(spellCards);
         when(weaponCardRepository.findAllWeaponCards()).thenReturn(weaponCards);
-        assertTrue(cardController.getCards().equals(allCards));
+        assertEquals(cardController.getCards(), allCards);
     }
 
     @Test
     void testDeleteCard() throws Exception {
         doNothing().when(heroCardRepository).deleteById(1);
-        assertTrue(cardController.deleteCard(1).equals(ResponseEntity.status(HttpStatus.OK).body("Card " + 1 + " is deleted!")));
+        assertEquals(cardController.deleteCard(1), ResponseEntity.status(HttpStatus.OK).body("Card " + 1 + " is deleted!"));
     }
 }

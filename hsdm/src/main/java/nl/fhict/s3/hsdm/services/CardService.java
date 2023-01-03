@@ -58,8 +58,7 @@ public class CardService {
     }
 
     public Optional<Card> findCardById(Integer cardId) {
-        Optional<Card> cardById = heroCardRepository.findById(cardId);
-        return cardById;
+        return heroCardRepository.findById(cardId);
     }
 
     public void deleteCard(Integer cardId) {
