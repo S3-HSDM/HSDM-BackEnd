@@ -40,35 +40,37 @@ class HsdmApplicationTests {
     @MockBean
     private IWeaponCardRepository weaponCardRepository;
 
-    /**
-     * Method under test: {@link CardController#addNewCard(String, String, String, Integer, String, String, String, String, String, Integer, Integer, Integer, String, String, Integer)}
-     */
+
     @Test
     void testGetHeroCardById() throws Exception {
+        Integer cardId = 1;
         Optional<Card> heroCard = Optional.of( new HeroCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestHp","TestHpEffect",0));
-        when(heroCardRepository.findById(1)).thenReturn(heroCard);
-        assertEquals(cardController.getCardById(1), heroCard);
+        when(heroCardRepository.findById(cardId)).thenReturn(heroCard);
+        assertEquals(cardController.getCardById(cardId), heroCard);
     }
 
     @Test
     void testGetMinionCardById() throws Exception {
+        Integer cardId = 2;
         Optional<Card> minionCard = Optional.of( new MinionCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0,"TestTribe"));
-        when(heroCardRepository.findById(2)).thenReturn(minionCard);
-        assertEquals(cardController.getCardById(2), minionCard);
+        when(heroCardRepository.findById(cardId)).thenReturn(minionCard);
+        assertEquals(cardController.getCardById(cardId), minionCard);
     }
 
     @Test
     void testGetSpellCardById() throws Exception {
+        Integer cardId = 3;
         Optional<Card> spellCard = Optional.of( new SpellCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect","TestSpellType"));
-        when(heroCardRepository.findById(3)).thenReturn(spellCard);
-        assertEquals(cardController.getCardById(3), spellCard);
+        when(heroCardRepository.findById(cardId)).thenReturn(spellCard);
+        assertEquals(cardController.getCardById(cardId), spellCard);
     }
 
     @Test
     void testGetWeaponCardById() throws Exception {
+        Integer cardId = 4;
         Optional<Card> weaponCard = Optional.of( new WeaponCard("TestClass","TestName","TestImage",0,Rarity.valueOf("FREE"),"TestSet","TestEffect",0,0));
-        when(heroCardRepository.findById(4)).thenReturn(weaponCard);
-        assertEquals(cardController.getCardById(4), weaponCard);
+        when(heroCardRepository.findById(cardId)).thenReturn(weaponCard);
+        assertEquals(cardController.getCardById(cardId), weaponCard);
     }
 
     @Test
